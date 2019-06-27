@@ -1,7 +1,14 @@
+from django.contrib.admin import AdminSite
 from django.contrib import admin
 
 # Register your models here.
 from .models import Choice, Question
+
+
+class MyAdminSite(AdminSite):
+    site_header = 'Polls administration'
+    site_title = 'Polls site'
+    index_title = 'Administration'
 
 
 class ChoiceInline(admin.TabularInline):
@@ -18,5 +25,7 @@ class QuestionAdmin(admin.ModelAdmin):
     list_display = ('question_text', 'pub_date', 'was_published_recently')
     list_filter = ['pub_date']
     search_fields = ['question_text']
-    
-admin.site.register(Question, QuestionAdmin)
+
+
+admin_site = MyAdminSite(name='myadmin')
+admin_site.register(Question, QuestionAdmin)
